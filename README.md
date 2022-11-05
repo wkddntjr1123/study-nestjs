@@ -12,12 +12,13 @@
 ## stack
 
 - Language : Typescript
-- Backend : Nest.js
+- framework : Nest.js
 - DB : MongoDB
+- ORM : Mongoose
 
 ## ETC
 
-- 의존성 관리 : yarn berry
+- 의존성 관리 : yarn
 - 인증 : JWT, ?:passport
 - API 테스트 : postman | Jest로 자동화
 - API 문서화 : swagger
