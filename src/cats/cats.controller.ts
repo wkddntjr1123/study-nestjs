@@ -4,13 +4,17 @@ import {
   Get,
   Post,
   UseFilters,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AuthService } from 'src/auth/auth.service';
 import { LoginRequestDto } from 'src/auth/dto/login.request.dto';
+import { JwtAuthGuard } from 'src/auth/jwt/jwt.guard';
+import { CurrentUser } from 'src/common/decorators/user.decorator';
 import { SuccessInterceptor } from 'src/common/interceptors/success.interceptor';
 import { HttpExceptionFilter } from '../common/exceptions/http-exception.filter';
+import { Cat } from './cats.scheme';
 import { CatsService } from './cats.service';
 import { ReadonlyCatDto } from './dto/cat.response.dto';
 import { CatsRequestDto } from './dto/cats.request.dto';
@@ -25,9 +29,10 @@ export class CatsController {
   ) {}
 
   @ApiOperation({ summary: '현재 고양이 가져오기' })
+  @UseGuards(JwtAuthGuard) // guard가 인증 처리를 담당하고, 처리 결과를 req에 담는다.
   @Get()
-  getCurrentCat() {
-    return 'current cat';
+  getCurrentCat(@CurrentUser() cat: Cat) {
+    return cat.readonlyData;
   }
 
   @ApiOperation({ summary: '회원가입' })
