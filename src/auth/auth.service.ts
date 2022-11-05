@@ -10,7 +10,6 @@ export class AuthService {
     private readonly catsRepository: CatsRepository,
     private readonly jwtService: JwtService, // @nestjs/jwt의 JwtModule에서 제공해주는 provider : jwt 만들 때 사용
   ) {}
-
   async jwtLogin(loginData: LoginRequestDto) {
     const { email, password } = loginData;
 
