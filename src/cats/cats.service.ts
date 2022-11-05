@@ -27,6 +27,6 @@ export class CatsService {
     });
 
     // return virtual field
-    return cat.clientData;
+    return cat.readonlyData;
   }
 }
