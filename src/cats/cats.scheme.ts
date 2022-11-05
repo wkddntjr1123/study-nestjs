@@ -26,7 +26,19 @@ export class Cat extends Document {
   @Prop()
   @IsString()
   imgUrl: string;
+
+  // virtual type
+  readonly clientData: { id: string; email: string; name: string };
 }
 
 // class to scheme
 export const CatScheme = SchemaFactory.createForClass(Cat);
+
+// client에게 보여줄 데이터를 virtual type으로 설정 => this can't param of arrow function
+CatScheme.virtual('clientData').get(function (this: Cat) {
+  return {
+    id: this.id,
+    email: this.email,
+    name: this.name,
+  };
+});
