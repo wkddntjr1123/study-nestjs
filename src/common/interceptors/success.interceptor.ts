@@ -26,6 +26,6 @@ export class SuccessInterceptor implements NestInterceptor {
     next: CallHandler<any>,
   ): Observable<any> | Promise<Observable<any>> {
     // data == return value of controller (post process)
-    return next.handle().pipe(map((data) => ({ success: true, ...data })));
+    return next.handle().pipe(map((data) => ({ success: true, data })));
   }
 }
