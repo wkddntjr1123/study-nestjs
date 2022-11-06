@@ -8,8 +8,9 @@ import { JwtService } from '@nestjs/jwt';
 export class AuthService {
   constructor(
     private readonly catsRepository: CatsRepository,
-    private readonly jwtService: JwtService, // @nestjs/jwt의 JwtModule에서 제공해주는 provider : jwt 만들 때 사용
+    private readonly jwtService: JwtService, // AuthModule에서 @nestjs/jwt의 JwtModule을 import했으므로, JwtService DI 가능
   ) {}
+
   async jwtLogin(loginData: LoginRequestDto) {
     const { email, password } = loginData;
 
@@ -25,7 +26,7 @@ export class AuthService {
 
     const payload = { email: email, sub: cat.id };
     return {
-      token: this.jwtService.sign(payload),
+      token: this.jwtService.sign(payload), // jwtService를 이용하여 토큰 발급
     };
   }
 }
