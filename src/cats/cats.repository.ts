@@ -24,4 +24,14 @@ export class CatsRepository {
   async findByIdWithoutPassword(id: string): Promise<Cat | null> {
     return await this.catsModel.findOne({ id }).select('-password');
   }
+
+  async findByIdAndUpdateImg(id: string, filename: string) {
+    const cat = await this.catsModel.findById(id);
+    if (!cat) {
+      return false;
+    }
+    cat.imgUrl = filename;
+    const newCat = await cat?.save();
+    return newCat?.readonlyData;
+  }
 }
